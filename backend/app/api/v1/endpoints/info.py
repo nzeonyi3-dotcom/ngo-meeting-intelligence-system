@@ -1,17 +1,15 @@
-"""Application info endpoints."""
+from fastapi import APIRouter, Depends
+from app.schemas.info import InfoSchema, HealthSchema
+from app.services.info_service import InfoService
 
-from fastapi import APIRouter
+router = APIRouter(prefix="/api/v1", tags=["info"])
 
-from app.core.config import settings
-
-router = APIRouter()
-
-
-@router.get("/")
-async def get_app_info():
+@router.get("/info", response_model=InfoSchema)
+async def get_info() -> InfoSchema:
     """Get application information."""
-    return {
-        "name": settings.APP_NAME,
-        "version": settings.APP_VERSION,
-        "status": "ok",
-    }
+    return InfoService.get_info()
+
+@router.get("/health", response_model=HealthSchema)
+async def health_check() -> HealthSchema:
+    """Health check endpoint."""
+    return HealthSchema(status="ok")

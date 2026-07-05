@@ -1,26 +1,12 @@
-"""Base model for all database models."""
-
+from sqlalchemy.orm import declarative_base
 from datetime import datetime
+from sqlalchemy import Column, DateTime
 
-from sqlalchemy import Column, DateTime, func
-from sqlalchemy.orm import DeclarativeBase
+Base = declarative_base()
 
-
-class Base(DeclarativeBase):
-    """Base class for all SQLAlchemy models."""
-
-    # Common columns
-    created_at = Column(
-        DateTime, server_default=func.now(), nullable=False, default=datetime.utcnow
-    )
-    updated_at = Column(
-        DateTime,
-        server_default=func.now(),
-        onupdate=func.now(),
-        nullable=False,
-        default=datetime.utcnow,
-    )
-
-    def __repr__(self) -> str:
-        """String representation of model."""
-        return f"<{self.__class__.__name__}>"
+class BaseModel(Base):
+    """Base model with common fields."""
+    __abstract__ = True
+    
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)

@@ -1,5 +1,1 @@
-"""Schemas package."""
-
-from app.schemas.base import BaseSchema
-
-__all__ = ["BaseSchema"]
+"""Pydantic schemas package."""

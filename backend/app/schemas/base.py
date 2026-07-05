@@ -1,17 +1,11 @@
-"""Pydantic schemas for request/response validation."""
-
-from datetime import datetime
-
 from pydantic import BaseModel
-
+from datetime import datetime
+from typing import Optional
 
 class BaseSchema(BaseModel):
     """Base schema with common fields."""
-
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
-
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    
     class Config:
-        """Pydantic config."""
-
         from_attributes = True

@@ -1,3 +1,1 @@
-"""Tests package."""
-
-__all__ = []
+"""Test package."""
