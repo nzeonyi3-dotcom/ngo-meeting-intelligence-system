@@ -1,4 +1,4 @@
-"""Updated main FastAPI application without Base.metadata.create_all()."""
+"""Updated main.py without startup event."""
 
 from fastapi import FastAPI
 from app.core.logging import setup_logging
@@ -6,10 +6,10 @@ from app.core.config import settings
 from app.middleware.cors import setup_cors
 from app.api.v1.endpoints.info import router as info_router
 
-# Setup logging
+# Setup logging first
 setup_logging()
 
-# Create FastAPI app with metadata
+# Create FastAPI app
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
@@ -20,16 +20,16 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
-# Setup CORS middleware
+# Setup CORS
 setup_cors(app)
 
-# Include API routers
+# Include routers
 app.include_router(info_router)
 
 # Root endpoint
 @app.get("/")
 async def root():
-    """Root endpoint - returns API information."""
+    """Root endpoint."""
     return {
         "message": f"Welcome to {settings.APP_NAME}",
         "version": settings.APP_VERSION,
@@ -39,5 +39,5 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for monitoring and orchestration."""
+    """Health check endpoint."""
     return {"status": "ok"}

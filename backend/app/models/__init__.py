@@ -1,5 +1,5 @@
-"""Database models package."""
+"""Updated models package with UUID support."""
 
-from app.models.base import Base
+from app.database.base import Base, BaseModel
 
-__all__ = ["Base"]
+__all__ = ["Base", "BaseModel"]
